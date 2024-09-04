@@ -1,0 +1,63 @@
+<app-header
+  [titulo]="'Dev_Bootcamp'"
+></app-header>
+
+<style>
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px; /* Espacio entre el encabezado y la tabla */
+  }
+
+  .dev-bootcamp {
+    font-size: 1.5em; /* Tamaño del texto para "Dev_Bootcamp" */
+    font-weight: bold;
+    padding: 5px 10px;
+    margin-right: 20px; /* Espacio entre el texto y otros elementos, si es necesario */
+    background-color: #f0f0f0; /* Fondo opcional */
+    border-radius: 5px; /* Bordes redondeados opcionales */
+  }
+</style>
+
+
+
+
+<div>
+  <app-modal-persona (eventoGuardar)="guardarPersona($event)"></app-modal-persona>
+</div>
+
+<table
+class="table">
+  <thead>
+      <th>Id</th>
+      <th>Identificacion</th>
+      <th>Nombres</th>
+      <th>Apellidos</th>
+      <th>Edad</th>
+      <th>Email</th>
+      <th>Celular</th>        
+      <th>Opciones</th>
+  </thead>
+  <tbody>
+      <tr *ngFor="let persona of dataPersonas">
+      <td> {{ persona.id }} </td>
+      <td> {{ persona.identificacion }} </td>
+      <td> {{ persona.nombres }} </td>
+      <td> {{ persona.apellidos }} </td>
+      <td> {{ persona.edad }} </td>
+      <td> {{ persona.email }} </td>
+      <td> {{ persona.celular | telefono }} </td>               
+      <td>
+          <!-- <app-botones-tabla [labelBtn1]="'Actualizar'" [labelBtn2]="'Quitar'" (eventoBtn1)="funcionPersona($event)" (eventoBtn2)="funcionEliminar($event)" [dataRegistro]="persona"></app-botones-tabla> -->
+          <button class="btn btn-danger" (click)="funcionEliminar(persona.id)">Eliminar</button> 
+          
+          <app-modal-persona
+          [dataPersona]="persona"
+          [modalid]="'modalpersona' + persona.id"
+          [nombreBoton]="'Editar'"
+        ></app-modal-persona>
+        </td>
+      </tr>
+  </tbody>
+</table>
